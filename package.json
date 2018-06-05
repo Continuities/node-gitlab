@@ -8,9 +8,9 @@
   },
   "scripts": {
     "build:clean": "rimraf -rf dist && mkdir -p dist",
-    "build:es6": "babel src -d dist/latest --config-file=./.babelrc",
-    "build:es5": "babel src -d dist/es5  --config-file=./.babelrc-es5",
-    "build": "npm run build:clean && npm run build:es6 && npm run build:es5",
+    "build:browser": "browserify src -t babelify --outfile browser.js",
+    "build:es5": "babel src -d dist/es5",
+    "build": "npm run build:clean && npm run build:browser && npm run build:es5",
     "lint": "node_modules/.bin/eslint ./src ./test",
     "test:bundles": "jest test/tests/bundles",
     "test:infrastructure": "jest test/tests/infrastructure",
@@ -29,12 +29,15 @@
     "es5",
     "request"
   ],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "bugs": {
     "url": "https://github.com/jdalrymple/node-gitlab/issues"
   },
   "author": "Justin Dalrymple <justin.s.dalrymple@gmail.com>",
   "license": "MIT",
-  "readmeFilename": "README.md",
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.49",
     "@babel/core": "^7.0.0-beta.49",
@@ -44,13 +47,15 @@
     "babel-core": "^7.0.0-0",
     "babel-eslint": "^8.2.3",
     "babel-jest": "^23.0.0",
+    "babelify": "^9.0.0",
+    "browserify": "^16.2.2",
     "codecov": "^3.0.2",
     "eslint": "^5.0.0-alpha.4",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jest": "^21.17.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.8.2",
+    "eslint-plugin-react": "^7.9.1",
     "jest": "^23.1.0",
     "jest-tap-reporter": "^1.9.0",
     "regenerator-runtime": "^0.11.1"
